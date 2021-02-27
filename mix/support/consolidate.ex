@@ -86,10 +86,10 @@ defmodule Cldr.Consolidate do
     cldr_locale_specific_dirs()
     |> consolidate_locale_content(locale)
     |> level_up_locale(locale)
-    |> Cldr.Map.underscore_keys()
+    |> Cldr.Map.underscore_keys(except: "locale_display_names")
     |> normalize_content(locale)
     |> Map.take(Cldr.Config.required_modules())
-    |> Cldr.Map.atomize_keys()
+    |> Cldr.Map.atomize_keys(except: :locale_display_names)
     |> save_locale(locale)
   end
 
@@ -115,6 +115,7 @@ defmodule Cldr.Consolidate do
     |> Normalize.Delimiter.normalize(locale)
     |> Normalize.Ellipsis.normalize(locale)
     |> Normalize.LenientParse.normalize(locale)
+    |> Normalize.LocaleDisplayNames.normalize(locale)
   end
 
   # Remove the top two levels of the map since they add nothing
