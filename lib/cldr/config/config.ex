@@ -1764,7 +1764,6 @@ defmodule Cldr.Config do
       |> Path.join(@grammatical_features_file)
       |> File.read!()
       |> json_library().decode!
-      |> IO.inspect
 
     data
     |> Enum.map(fn {k, v} ->
