@@ -278,15 +278,15 @@ defmodule Cldr.Locale do
 
         ## Examples
 
-            iex> #{inspect __MODULE__}.territory_from_locale "en-US"
+            iex> #{inspect(__MODULE__)}.territory_from_locale "en-US"
             :US
 
-            iex> #{inspect __MODULE__}.territory_from_locale "en-US-u-rg-GBzzzz"
+            iex> #{inspect(__MODULE__)}.territory_from_locale "en-US-u-rg-GBzzzz"
             :GB
 
         """
         @spec territory_from_locale(Cldr.LanguageTag.t() | Cldr.Locale.locale_name()) ::
-          Cldr.territory
+                Cldr.territory()
 
         @doc since: "2.18.2"
 
@@ -315,14 +315,14 @@ defmodule Cldr.Locale do
 
         ## Examples
 
-            iex> #{inspect __MODULE__}.timezone_from_locale "en-US-u-tz-ausyd"
+            iex> #{inspect(__MODULE__)}.timezone_from_locale "en-US-u-tz-ausyd"
             "Australia/Sydney"
 
         """
         @doc since: "2.19.0"
 
         @spec timezone_from_locale(LanguageTag.t() | Cldr.Locale.locale_name()) ::
-                String.t() | {:error, {module(), String.t}}
+                String.t() | {:error, {module(), String.t()}}
 
         def timezone_from_locale(locale) when is_binary(locale) do
           Cldr.Locale.timezone_from_locale(locale, unquote(config.backend))
@@ -331,7 +331,6 @@ defmodule Cldr.Locale do
         def timezone_from_locale(%LanguageTag{} = locale) do
           Cldr.Locale.timezone_from_locale(locale)
         end
-
       end
     end
   end
@@ -522,7 +521,7 @@ defmodule Cldr.Locale do
   """
 
   @spec timezone_from_locale(LanguageTag.t() | locale_name()) ::
-          String.t() | {:error, {module(), String.t}}
+          String.t() | {:error, {module(), String.t()}}
 
   @doc since: "2.19.0"
 
@@ -589,11 +588,9 @@ defmodule Cldr.Locale do
     zone_count = length(zones)
 
     {:error,
-      {Cldr.AmbiguousTimezoneError,
-        "Cannot determine the timezone since the territory #{inspect territory} " <>
-        "has #{zone_count} timezone IDs"
-      }
-    }
+     {Cldr.AmbiguousTimezoneError,
+      "Cannot determine the timezone since the territory #{inspect(territory)} " <>
+        "has #{zone_count} timezone IDs"}}
   end
 
   @doc """

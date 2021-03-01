@@ -194,9 +194,7 @@ defmodule Cldr.Consolidate do
 
   # As of CLDR 37 there are available locales that have no content and
   # therefore should not be included
-  @invalid_locales [
-
-  ]
+  @invalid_locales []
 
   def all_locales() do
     download_data_dir()
@@ -556,7 +554,7 @@ defmodule Cldr.Consolidate do
     |> File.read!()
     |> Jason.decode!()
     |> get_in(["supplemental", "grammaticalData"])
-    |> Cldr.Normalize.GrammaticalFeatures.normalize
+    |> Cldr.Normalize.GrammaticalFeatures.normalize()
     |> save_file(path)
 
     assert_package_file_configured!(path)

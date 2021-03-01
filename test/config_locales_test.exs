@@ -26,6 +26,7 @@ defmodule Cldr.Config.Test do
 
   test "that a backend config with invalid locale raises" do
     match = ~r/Failed to install the locale named.*/
+
     capture_io(:stderr, fn ->
       assert_raise Cldr.UnknownLocaleError, match, fn ->
         defmodule InvalidLocale do
@@ -37,12 +38,13 @@ defmodule Cldr.Config.Test do
 
   test "that a backend config with unknown Gettext locale warns" do
     match = ~r/The locale.*/
+
     capture_io(fn ->
       assert capture_io(:stderr, fn ->
-        defmodule UnknownGettext do
-          use Cldr, locales: ["en"], gettext: TestGettext.GettextUnknown
-        end
-      end) =~ match
+               defmodule UnknownGettext do
+                 use Cldr, locales: ["en"], gettext: TestGettext.GettextUnknown
+               end
+             end) =~ match
     end)
   end
 end

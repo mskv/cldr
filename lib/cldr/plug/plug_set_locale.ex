@@ -366,7 +366,8 @@ if Code.ensure_loaded?(Plug) do
 
     defp validate_app_and_scope!(:gettext, module) when is_atom(module) do
       Cldr.Code.ensure_compiled?(module) ||
-        raise(ArgumentError, "Gettext backend #{inspect module} is unknown")
+        raise(ArgumentError, "Gettext backend #{inspect(module)} is unknown")
+
       :ok
     end
 
